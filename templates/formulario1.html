@@ -1,0 +1,54 @@
+{%extends "Layout.html"%}
+{%block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" >
+            <form action="/resultado" method="POST">
+                <label>Operacion:</label>
+                <label for="opcion1">
+                    <input type="radio" id="Suma" name="opciones" value="suma">
+                    Suma
+                </label>
+            
+                <label for="opcion2">
+                    <input type="radio" id="Resta" name="opciones" value="resta">
+                    Resta
+                </label>
+            
+                <label for="opcion3">
+                    <input type="radio" id="Multiplicacion" name="opciones" value="multiplicacion">
+                    Multiplicacion
+                </label>
+            
+                <label for="opcion4">
+                    <input type="radio" id="Division" name="opciones" value="division">
+                    Division
+                </label>
+            
+            
+                <label> N1:</label>
+                <input type="number" name="n1"/>
+                
+                <label> N2:</label>
+                <input type="number" name="n2"/>
+                <label></label>
+                <input type="submit">
+                
+            </form>
+        </div>
+        <div id="resultado" class="col-6">
+            <p>El resultado de la {{operacion}} es= {{resultado}}</p>
+        </div>
+
+
+    </div>
+
+</div>
+{%endblock%}
+{%block content2%}
+<div class="col-md-6">
+    <p>El resultado de la {{operacion}} es= {{resultado}}</p>
+</div>
+{%endblock%}
+             
+
