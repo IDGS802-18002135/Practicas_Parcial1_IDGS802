@@ -1,0 +1,35 @@
+{%extends "layout.html"%}
+{%block content%}
+{%import "_macros_horoscopo.html" as macros%}
+
+<h1>Horoscopo chino</h1>
+<form action="" method="post">
+        
+        
+
+    {{macros.input_Form(form.nombre,class="form-control")}}
+    {{macros.input_Form(form.apaterno,class="form-control")}}
+    {{macros.input_Form(form.amaterno,class="form-control")}}
+    {{macros.input_Form(form.dia,class="form-control")}}
+    {{macros.input_Form(form.mes,class="form-control")}}
+    {{macros.input_Form(form.anio,class="form-control")}}
+    {{macros.input_Form(form.sexo,class="form-control")}}
+
+<input type="submit" name="btn1">
+</form>
+
+
+{%endblock%}
+
+{%block content2%}
+{%import "_macros_horoscopo.html" as macros%}
+
+
+    <h1>Hola {{nombre}} {{apaterno}} {{amaterno}}</h1>
+    <h1>Tienes {{edad}} años</h1>
+    <h1>tu signo zodiacal</h1>
+    <h1>es el {{signo}}</h1>
+    
+    <img src="{{ url_for('static', filename='zodiaco/' + imagen) }}" alt="{{ signo }}">
+
+{%endblock%}
