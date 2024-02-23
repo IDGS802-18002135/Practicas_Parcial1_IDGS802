@@ -4,6 +4,7 @@ import forms,math
 import datetime
 from datetime import datetime
 import formsHoroscopo
+from io import open
 app=Flask(__name__)
 
 @app.route("/Practica3")
@@ -200,6 +201,73 @@ def calcularHoroscopo():
         
       
     return render_template("formularioHoroscopo.html",form=horoscopo_form,signo=signo,imagen=imagen,nombre=nombre,apaterno=apaterno,amaterno=amaterno,edad=edad)
+
+@app.route("/diccionario",methods=["GET","POST"])
+
+def diccionario():
+    espaniol=""
+    ingles=""
+    idioma=""
+    palabra=""
+    archivo_texto=""
+    lista=[]
+    resultado=""
+    dicc_form=forms.DiccionarioForm(request.form)
+    if request.method=='POST' and dicc_form.validate() and 'btn1' in request.form:
+        espaniol=dicc_form.espaniol.data
+        ingles=dicc_form.ingles.data
+        archivo_texto=open('palabras.txt','a')
+        
+        archivo_texto.write('\n'+ingles+':'+espaniol)
+        
+        
+        archivo_texto.close()
+
+    
+
+    traduc_form=forms.TraductorForm(request.form)
+    if request.method=='POST' and traduc_form.validate() and 'btn2' in request.form:
+        validador=False
+        palabra=traduc_form.palabra.data
+        idioma=traduc_form.idioma.data
+        archivo_texto=open('palabras.txt','r')
+        for lineas in archivo_texto.readlines():
+            if  lineas.strip():
+                ingles,espaniol=lineas.split(':')
+                if palabra.lower()==ingles.lower() and idioma=='español':
+                    validador=True
+                    resultado="la palabra "+ingles+" no existe"
+                    #resultado=espaniol
+                    print(espaniol)
+                elif palabra.lower()==espaniol.lower() and idioma=='ingles':
+                    validador=True
+                    resultado="la palabra "+espaniol+" no existe"
+                    #resultado=ingles
+                    print(ingles)
+                elif palabra.lower()==ingles.lower() and idioma=='ingles':
+                    validador=True
+                    resultado=espaniol
+                    #resultado="la palabra "+ingles+" no existe"
+                    print(ingles)
+                elif palabra.lower()==espaniol.lower() and idioma=='español':
+                    validador=True
+                    resultado=ingles
+                    #resultado="la palabra "+espaniol+" no existe"
+                    print(espaniol) 
+        if validador:
+            print("Palabra encontrada")
+                
+        elif not validador:
+            resultado="Palabra no encontrada"
+            print("Palabra no encontrada")
+            
+
+
+      
+        archivo_texto.close()
+
+    return render_template("formularioDiccionario.html",form=dicc_form,form2=traduc_form,resultado=resultado )
+
 
 
 

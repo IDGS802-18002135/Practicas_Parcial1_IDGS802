@@ -1,0 +1,6 @@
+
+blue:azul
+red:rojo
+blue:azul
+sheet:hoja
+table:mesa
